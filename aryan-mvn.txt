@@ -1,0 +1,111 @@
+import java.io.*;
+import java.util.*;
+
+class Employee {
+    int id;
+    String name;
+    double salary;
+
+    Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return id + "," + name + "," + salary;
+    }
+}
+
+class PayrollSystem {
+    private static final String FILE_NAME = "employees.txt";
+
+    // Save employee to file
+    void saveEmployee(Employee emp) {
+        try (FileWriter fw = new FileWriter(FILE_NAME, true)) {
+            fw.write(emp.toString() + "\n");
+            System.out.println("Employee saved successfully!");
+        } catch (IOException e) {
+            System.out.println("Error saving employee: " + e.getMessage());
+        }
+    }
+
+    // Show all employees
+    void showAllEmployees() {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            System.out.println("\n--- Employee Records ---");
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                System.out.println("ID: " + data[0] + ", Name: " + data[1] + ", Salary: " + data[2]);
+            }
+        } catch (IOException e) {
+            System.out.println("No employees found or file missing!");
+        }
+    }
+
+    // Search employee by ID
+    void searchById(int id) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (Integer.parseInt(data[0]) == id) {
+                    System.out.println("Employee Found:");
+                    System.out.println("ID: " + data[0] + ", Name: " + data[1] + ", Salary: " + data[2]);
+                    return;
+                }
+            }
+            System.out.println("Employee not found!");
+        } catch (IOException e) {
+            System.out.println("Error reading file.");
+        }
+    }
+}
+
+public class EmployeeMain {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        PayrollSystem ps = new PayrollSystem();
+
+        while (true) {
+            System.out.println("\n1. Add Employee");
+            System.out.println("2. Show All Employees");
+            System.out.println("3. Search Employee by ID");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+            int ch = sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter Salary: ");
+                    double sal = sc.nextDouble();
+                    ps.saveEmployee(new Employee(id, name, sal));
+                    break;
+
+                case 2:
+                    ps.showAllEmployees();
+                    break;
+
+                case 3:
+                    System.out.print("Enter Employee ID: ");
+                    int empId = sc.nextInt();
+                    ps.searchById(empId);
+                    break;
+
+                case 4:
+                    System.out.println("Thank you! Exiting...");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+}

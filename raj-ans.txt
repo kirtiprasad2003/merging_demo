@@ -1,0 +1,51 @@
+import java.util.*;
+
+class Student {
+    int id;
+    String name;
+    double marks;
+
+    Student(int id, String name, double marks) {
+        this.id = id;
+        this.name = name;
+        this.marks = marks;
+    }
+
+    void display() {
+        System.out.println(id + "  " + name + "  " + marks);
+    }
+}
+
+class StudentManager {
+    ArrayList<Student> list = new ArrayList<>();
+
+    void addStudent(Student s) {
+        list.add(s);
+        System.out.println("Student added successfully!");
+    }
+
+    void showAll() {
+        if (list.isEmpty()) {
+            System.out.println("No students found.");
+            return;
+        }
+        for (Student s : list) {
+            s.display();
+        }
+    }
+
+    void searchById(int id) {
+        for (Student s : list) {
+            if (s.id == id) {
+                System.out.println("Student Found:");
+                s.display();
+                return;
+            }
+        }
+        System.out.println("Student not found!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc =
