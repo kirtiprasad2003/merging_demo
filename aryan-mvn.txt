@@ -21,7 +21,6 @@ class Employee {
 class PayrollSystem {
     private static final String FILE_NAME = "employees.txt";
 
-    // Save employee to file
     void saveEmployee(Employee emp) {
         try (FileWriter fw = new FileWriter(FILE_NAME, true)) {
             fw.write(emp.toString() + "\n");
@@ -31,7 +30,6 @@ class PayrollSystem {
         }
     }
 
-    // Show all employees
     void showAllEmployees() {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
@@ -45,7 +43,6 @@ class PayrollSystem {
         }
     }
 
-    // Search employee by ID
     void searchById(int id) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
