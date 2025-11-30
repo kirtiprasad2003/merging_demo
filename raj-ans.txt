@@ -1,4 +1,4 @@
-import java.util.*;
+cannerimport java.util.*;
 
 class Student {
     int id;
@@ -48,4 +48,4 @@ class StudentManager {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc =
+        Scanner sc = Scanner System.in ;
