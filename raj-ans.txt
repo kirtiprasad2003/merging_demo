@@ -48,4 +48,4 @@ class StudentManager {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc =
+        Scanner sc = new Scanner System.in;
